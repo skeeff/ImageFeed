@@ -16,6 +16,7 @@
 		1B492FEA2D42880900B97F8B /* ImageFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FE92D42880900B97F8B /* ImageFeedTests.swift */; };
 		1B492FF42D42880900B97F8B /* ImageFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FF32D42880900B97F8B /* ImageFeedUITests.swift */; };
 		1B492FF62D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FF52D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift */; };
+		1BD6C6362D53A710008EF6BB /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD6C6352D53A710008EF6BB /* UIColor+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		1B492FEF2D42880900B97F8B /* ImageFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B492FF32D42880900B97F8B /* ImageFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITests.swift; sourceTree = "<group>"; };
 		1B492FF52D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1BD6C6352D53A710008EF6BB /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				1B492FD22D42880700B97F8B /* AppDelegate.swift */,
 				1B492FD42D42880700B97F8B /* SceneDelegate.swift */,
 				1B492FD62D42880700B97F8B /* ViewController.swift */,
+				1BD6C6372D53A734008EF6BB /* Helpers */,
 				1B492FD82D42880700B97F8B /* Main.storyboard */,
 				1B492FDB2D42880900B97F8B /* Assets.xcassets */,
 				1B492FDD2D42880900B97F8B /* LaunchScreen.storyboard */,
@@ -125,6 +128,14 @@
 				1B492FF52D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift */,
 			);
 			path = ImageFeedUITests;
+			sourceTree = "<group>";
+		};
+		1BD6C6372D53A734008EF6BB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1BD6C6352D53A710008EF6BB /* UIColor+Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +272,7 @@
 				1B492FD72D42880700B97F8B /* ViewController.swift in Sources */,
 				1B492FD32D42880700B97F8B /* AppDelegate.swift in Sources */,
 				1B492FD52D42880700B97F8B /* SceneDelegate.swift in Sources */,
+				1BD6C6362D53A710008EF6BB /* UIColor+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
