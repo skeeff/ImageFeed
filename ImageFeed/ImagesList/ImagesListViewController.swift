@@ -2,10 +2,13 @@
 
 import UIKit
 
-class ImagesListViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
-    
+final class ImagesListViewController: UIViewController {
+    //MARK: @IBOutlet properties
+    @IBOutlet private weak var tableView: UITableView!
+    //MARK: constants
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
+    
+    private let currentDate = Date()
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -17,18 +20,15 @@ class ImagesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.rowHeight = 200
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        
     }
 
-
 }
-
+//MARK: extensions
 extension ImagesListViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //TODO: прописать логику при нажатии на ячейкку
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -57,28 +57,25 @@ extension ImagesListViewController: UITableViewDataSource{
         guard let imageListCell = cell as? ImagesListCell else{
             return UITableViewCell()
         }
-        
         configCell(for: imageListCell, with: indexPath)
-        
+    
         return imageListCell
-        
     }
     
     
 }
 extension ImagesListViewController{
-    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
             return
         }
 
         cell.cellImage.image = image
-        cell.dateLabel.text = dateFormatter.string(from: Date())
+        cell.dateLabel.text = dateFormatter.string(from: currentDate)
 
         let isLiked = indexPath.row % 2 == 0
         let likeImage = isLiked ? UIImage(named: "liked") : UIImage(named: "notLiked")
         cell.likeButton.setImage(likeImage, for: .normal)
-        
     }
 }
 
