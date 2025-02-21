@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" name="YP Black"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="244" id="7mN-Se-RsF" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="244" id="7mN-Se-RsF" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="244"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7mN-Se-RsF" id="Vkd-z7-Xeh">
@@ -49,7 +49,7 @@
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="6 мая 2025" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mrq-iL-SBq">
                                                     <rect key="frame" x="57" y="212" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -57,7 +57,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Mrq-iL-SBq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jme-Da-qNn" secondAttribute="trailing" constant="8" id="3I7-Hy-rhJ"/>
-                                                <constraint firstItem="Mrq-iL-SBq" firstAttribute="bottom" secondItem="Jme-Da-qNn" secondAttribute="bottom" id="904-qE-zJY"/>
+                                                <constraint firstItem="Mrq-iL-SBq" firstAttribute="bottom" secondItem="Jme-Da-qNn" secondAttribute="bottom" constant="-8" id="904-qE-zJY"/>
                                                 <constraint firstItem="Mrq-iL-SBq" firstAttribute="leading" secondItem="Jme-Da-qNn" secondAttribute="leading" constant="8" id="G5q-Vf-YXD"/>
                                                 <constraint firstAttribute="trailing" secondItem="7zV-2I-ZEH" secondAttribute="trailing" constant="16" id="JWe-jn-wWz"/>
                                                 <constraint firstAttribute="trailing" secondItem="Jme-Da-qNn" secondAttribute="trailing" constant="16" id="UjN-jr-Nms"/>
