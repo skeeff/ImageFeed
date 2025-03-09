@@ -16,6 +16,8 @@
 		1B492FEA2D42880900B97F8B /* ImageFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FE92D42880900B97F8B /* ImageFeedTests.swift */; };
 		1B492FF42D42880900B97F8B /* ImageFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FF32D42880900B97F8B /* ImageFeedUITests.swift */; };
 		1B492FF62D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FF52D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift */; };
+		1B83704D2D6B916B00FDFFDD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B83704C2D6B916B00FDFFDD /* ProfileViewController.swift */; };
+		1B8370502D6F5CD300FDFFDD /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B83704F2D6F5CD300FDFFDD /* SingleImageViewController.swift */; };
 		1BD6C6822D5E110A008EF6BB /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD6C6812D5E110A008EF6BB /* ImagesListCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +52,8 @@
 		1B492FEF2D42880900B97F8B /* ImageFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B492FF32D42880900B97F8B /* ImageFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITests.swift; sourceTree = "<group>"; };
 		1B492FF52D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1B83704C2D6B916B00FDFFDD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1B83704F2D6F5CD300FDFFDD /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		1BD6C6812D5E110A008EF6BB /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,8 +105,10 @@
 		1B492FD12D42880700B97F8B /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				1B83704E2D6B936200FDFFDD /* Profile */,
 				1B492FD22D42880700B97F8B /* AppDelegate.swift */,
 				1B492FD42D42880700B97F8B /* SceneDelegate.swift */,
+				1B8370512D6F5F8000FDFFDD /* SingleImage */,
 				1BD6C6832D5E113E008EF6BB /* ImagesList */,
 				1BD6C6372D53A734008EF6BB /* Helpers */,
 				1B492FD82D42880700B97F8B /* Main.storyboard */,
@@ -128,6 +134,22 @@
 				1B492FF52D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift */,
 			);
 			path = ImageFeedUITests;
+			sourceTree = "<group>";
+		};
+		1B83704E2D6B936200FDFFDD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1B83704C2D6B916B00FDFFDD /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		1B8370512D6F5F8000FDFFDD /* SingleImage */ = {
+			isa = PBXGroup;
+			children = (
+				1B83704F2D6F5CD300FDFFDD /* SingleImageViewController.swift */,
+			);
+			path = SingleImage;
 			sourceTree = "<group>";
 		};
 		1BD6C6372D53A734008EF6BB /* Helpers */ = {
@@ -279,7 +301,9 @@
 			files = (
 				1B492FD72D42880700B97F8B /* ImagesListViewController.swift in Sources */,
 				1B492FD32D42880700B97F8B /* AppDelegate.swift in Sources */,
+				1B83704D2D6B916B00FDFFDD /* ProfileViewController.swift in Sources */,
 				1BD6C6822D5E110A008EF6BB /* ImagesListCell.swift in Sources */,
+				1B8370502D6F5CD300FDFFDD /* SingleImageViewController.swift in Sources */,
 				1B492FD52D42880700B97F8B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
