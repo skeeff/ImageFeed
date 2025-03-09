@@ -1,17 +1,10 @@
-//
-//  SingleImageViewController.swift
-//  ImageFeed
-//
-//  Created by Федор Чистовский on 26.02.2025.
-//
-
 import UIKit
 
 final class SingleImageViewController: UIViewController{
     
     var image: UIImage? {
         didSet{
-            guard isViewLoaded, let image else{ return }
+            guard isViewLoaded, let image else { return }
             
             imageView.image = image
             imageView.frame.size = image.size
@@ -22,17 +15,6 @@ final class SingleImageViewController: UIViewController{
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet private var imageView: UIImageView!
-    
-    @IBAction func didTapShareButton(_ sender: UIButton) {
-        guard let image else { return }
-        let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        present(share, animated: true, completion: nil)
-    }
-    
-    @IBAction func didPressBackButton() {
-        dismiss(animated: true, completion: nil)
-    }
-    
     
     override func viewDidLoad() {
         
@@ -67,6 +49,15 @@ final class SingleImageViewController: UIViewController{
         
         
         
+    }
+    @IBAction func didTapShareButton(_ sender: UIButton) {
+        guard let image else { return }
+        let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(share, animated: true, completion: nil)
+    }
+    
+    @IBAction func didPressBackButton() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
