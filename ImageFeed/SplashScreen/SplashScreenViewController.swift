@@ -1,5 +1,9 @@
 import UIKit
 
+protocol AuthViewControllerDelegate: AnyObject {
+    func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
+}
+
 final class SplashScreenViewController: UIViewController{
     
     private var logo: UIImageView?
@@ -41,7 +45,7 @@ final class SplashScreenViewController: UIViewController{
             return
         }
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
-               .instantiateViewController(withIdentifier: "TabBarViewController")
+            .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
     }
     
@@ -81,20 +85,20 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            self.fetchOAuthToken(code)
+            self.switchToTabBar()
         }
     }
-    
-    private func fetchOAuthToken(_ code: String) {
-        oAuth2Service.fetchOAuthToken(code: code) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                self.switchToTabBar()
-            case .failure:
-                // TODO [Sprint 11]
-                break
-            }
-        }
-    }
+//    
+//    private func fetchOAuthToken(_ code: String) {
+//        oAuth2Service.fetchOAuthToken(code: code) { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success:
+//                self.switchToTabBar()
+//            case .failure:
+//                // TODO [Sprint 11]
+//                break
+//            }
+//        }
+//    }
 }

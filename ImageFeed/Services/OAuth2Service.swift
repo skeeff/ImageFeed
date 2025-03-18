@@ -31,6 +31,15 @@ final class OAuth2Service {
     }
     
     func fetchOAuthToken(code: String, completion: @escaping (Result<String,Error>) -> Void){
+        
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.fetchOAuthToken(code: code, completion: completion)
+            }
+            return
+        }
+        
         guard let urlRequest = makeOAuthTokenRequest(code: code) else {
             completion(.failure(NSError(domain: "Invalid request", code: 0, userInfo: nil)))
             return
@@ -40,12 +49,21 @@ final class OAuth2Service {
             
             if let error = error {
                 completion(.failure(error))
+                print(error.localizedDescription)
             }
             
             guard let data = data else{
                 completion(.failure(NSError(domain: "No data recieved", code: 0, userInfo: nil)))
                 return
             }
+            
+            
+            if let jsonString = String(data: data, encoding: .utf8){
+                print("JSON = \(jsonString)")
+            } else {
+                print("failed to convert data to string")
+            }
+            
             
             do {
                 let decoder = JSONDecoder()

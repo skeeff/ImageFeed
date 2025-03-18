@@ -1,9 +1,20 @@
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkError: Error, LocalizedError {
     case httpStatusCode(Int)
     case urlRequestError(Error)
     case urlSessionError
+    
+    var errorDescription: String? {
+        switch self {
+        case .httpStatusCode(let code):
+            return "HTTP Status Code Error - code \(code)"
+        case .urlRequestError(let error):
+            return "Request Error - \(error.localizedDescription)"
+        case .urlSessionError:
+            return "URL Session Error"
+        }
+    }
 }
 
 extension URLSession {
@@ -21,9 +32,11 @@ extension URLSession {
                     fulfillCompletionOnTheMainThread(.success(data))
                 } else {
                     fulfillCompletionOnTheMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
+                    print(NetworkError.httpStatusCode(statusCode).localizedDescription)
                 }
             } else if let error = error {
                 fulfillCompletionOnTheMainThread(.failure(NetworkError.urlRequestError(error)))
+                print(NetworkError.urlSessionError.localizedDescription)
             } else {
                 fulfillCompletionOnTheMainThread(.failure(NetworkError.urlSessionError))
             }

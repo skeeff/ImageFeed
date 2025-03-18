@@ -1,9 +1,5 @@
 import UIKit
 
-protocol AuthViewControllerDelegate: AnyObject {
-    func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
-}
-
 final class AuthViewController: UIViewController {
     
     private let oAuth2Service = OAuth2Service.shared
@@ -18,12 +14,6 @@ final class AuthViewController: UIViewController {
         configureBackButton()
     }
     
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        super.viewWillAppear(animated)
-    //        configureBackButton()
-    //    }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == segueShowWebViewId {
             guard
@@ -37,20 +27,6 @@ final class AuthViewController: UIViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
-    
-    //    private func configureBackButton() {
-    //        let backButton = UIBarButtonItem(image: UIImage(named: "nav_back_button"),
-    //                                         style: .plain,
-    //                                         target: self,
-    //                                         action: #selector(didTapBackButton))
-    //        backButton.tintColor = UIColor(named: "YP Black")
-    //        navigationItem.leftBarButtonItem = backButton
-    //    }
-    //
-    //    @objc private func didTapBackButton() {
-    //        navigationController?.popViewController(animated: true)
-    //    }
-    
     
     private func configureBackButton(){
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
@@ -78,7 +54,9 @@ extension AuthViewController: WebViewViewControllerDelegate{
                     self.oAuth2ServiceStorage.token = token
                     
                     DispatchQueue.main.async {
-                        self.dismiss(animated: true)
+                        self.dismiss(animated: true){
+                            self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+                        }
                     }
                     
                 case .failure(let error):
