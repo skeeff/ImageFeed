@@ -31,29 +31,26 @@ final class OAuth2Service {
     }
     
     func fetchOAuthToken(code: String, completion: @escaping (Result<String,Error>) -> Void){
-        
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                self.fetchOAuthToken(code: code, completion: completion)
-            }
-            return
-        }
-        
         guard let urlRequest = makeOAuthTokenRequest(code: code) else {
-            completion(.failure(NSError(domain: "Invalid request", code: 0, userInfo: nil)))
+            DispatchQueue.main.async {
+                completion(.failure(NSError(domain: "Invalid request", code: 0, userInfo: nil)))
+            }
             return
         }
         
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             
             if let error = error {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
                 print(error.localizedDescription)
             }
             
             guard let data = data else{
-                completion(.failure(NSError(domain: "No data recieved", code: 0, userInfo: nil)))
+                DispatchQueue.main.async {
+                    completion(.failure(NSError(domain: "No data recieved", code: 0, userInfo: nil)))
+                }
                 return
             }
             
@@ -68,11 +65,15 @@ final class OAuth2Service {
             do {
                 let decoder = JSONDecoder()
                 let responseBody = try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                completion(.success(responseBody.accessToken))
+                DispatchQueue.main.async {
+                    completion(.success(responseBody.accessToken))
+                }
             } catch {
                 print("Couldnt decode token")
                 print(error.localizedDescription)
-                completion(.failure(DecoderError.decodingError(error)))
+                DispatchQueue.main.async {
+                    completion(.failure(DecoderError.decodingError(error)))
+                }
             }
             
         }

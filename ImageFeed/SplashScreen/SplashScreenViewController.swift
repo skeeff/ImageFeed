@@ -23,7 +23,7 @@ final class SplashScreenViewController: UIViewController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let token = storage.token{
+        if storage.token != nil {
             switchToTabBar()
         } else {
             performSegue(withIdentifier: authSegueId, sender: nil)
@@ -88,17 +88,17 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
             self.switchToTabBar()
         }
     }
-//    
-//    private func fetchOAuthToken(_ code: String) {
-//        oAuth2Service.fetchOAuthToken(code: code) { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success:
-//                self.switchToTabBar()
-//            case .failure:
-//                // TODO [Sprint 11]
-//                break
-//            }
-//        }
-//    }
+    //
+    //    private func fetchOAuthToken(_ code: String) {
+    //        oAuth2Service.fetchOAuthToken(code: code) { [weak self] result in
+    //            guard let self = self else { return }
+    //            switch result {
+    //            case .success:
+    //                self.switchToTabBar()
+    //            case .failure:
+    //                // TODO [Sprint 11]
+    //                break
+    //            }
+    //        }
+    //    }
 }

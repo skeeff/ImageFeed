@@ -15,18 +15,19 @@ final class AuthViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == segueShowWebViewId {
-            guard
-                let webViewViewController = segue.destination as? WebViewViewController
-            else {
-                assertionFailure("Failed to prepare for \(segueShowWebViewId)")
-                return
-            }
-            webViewViewController.delegate = self
-        }else{
+        guard segue.identifier == segueShowWebViewId else {
             super.prepare(for: segue, sender: sender)
+            return
         }
+        
+        guard let webViewViewController = segue.destination as? WebViewViewController else {
+            assertionFailure("Failed to prepare for \(segueShowWebViewId)")
+            return
+        }
+        
+        webViewViewController.delegate = self
     }
+    
     
     private func configureBackButton(){
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
