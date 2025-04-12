@@ -33,6 +33,7 @@
 		1B8370502D6F5CD300FDFFDD /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B83704F2D6F5CD300FDFFDD /* SingleImageViewController.swift */; };
 		1BC06DB52DA97A7B00CAE0EF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1BC06DB42DA97A7B00CAE0EF /* Kingfisher */; };
 		1BC06DB82DAADFD000CAE0EF /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 1BC06DB72DAADFD000CAE0EF /* SwiftKeychainWrapper */; };
+		1BC06DBA2DAAE33100CAE0EF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC06DB92DAAE33100CAE0EF /* TabBarController.swift */; };
 		1BCF4BE42D94575300CEADE6 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCF4BE32D94575300CEADE6 /* ProgressHUD */; };
 		1BD6C6822D5E110A008EF6BB /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD6C6812D5E110A008EF6BB /* ImagesListCell.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 		1B7860A92D871BBD00008FFD /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		1B83704C2D6B916B00FDFFDD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1B83704F2D6F5CD300FDFFDD /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		1BC06DB92DAAE33100CAE0EF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1BD6C6812D5E110A008EF6BB /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +139,9 @@
 		1B492FD12D42880700B97F8B /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				1BD6C6832D5E113E008EF6BB /* ImagesList */,
+				1B8370512D6F5F8000FDFFDD /* SingleImage */,
+				1BC06DBB2DAAE7A400CAE0EF /* TabBar */,
 				1B7860A82D871BA600008FFD /* SplashScreen */,
 				1B7860A32D84A3C600008FFD /* Services */,
 				1B7860A02D8426D100008FFD /* Models */,
@@ -145,8 +150,6 @@
 				1B492FD22D42880700B97F8B /* AppDelegate.swift */,
 				1B492FD42D42880700B97F8B /* SceneDelegate.swift */,
 				1B7860922D7F2E8900008FFD /* Constants.swift */,
-				1B8370512D6F5F8000FDFFDD /* SingleImage */,
-				1BD6C6832D5E113E008EF6BB /* ImagesList */,
 				1BD6C6372D53A734008EF6BB /* Helpers */,
 				1B492FD82D42880700B97F8B /* Main.storyboard */,
 				1B492FDB2D42880900B97F8B /* Assets.xcassets */,
@@ -227,6 +230,14 @@
 				1B83704F2D6F5CD300FDFFDD /* SingleImageViewController.swift */,
 			);
 			path = SingleImage;
+			sourceTree = "<group>";
+		};
+		1BC06DBB2DAAE7A400CAE0EF /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				1BC06DB92DAAE33100CAE0EF /* TabBarController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		1BD6C6372D53A734008EF6BB /* Helpers */ = {
@@ -399,6 +410,7 @@
 				1B7860AA2D871BBD00008FFD /* SplashScreenViewController.swift in Sources */,
 				1BD6C6822D5E110A008EF6BB /* ImagesListCell.swift in Sources */,
 				1B42184F2D9E92F300B09CE1 /* ProfileModels.swift in Sources */,
+				1BC06DBA2DAAE33100CAE0EF /* TabBarController.swift in Sources */,
 				1B7860952D7F5DE200008FFD /* AuthViewController.swift in Sources */,
 				1B78609E2D82E2C800008FFD /* URLSession+data.swift in Sources */,
 				1B7860932D7F2E8900008FFD /* Constants.swift in Sources */,
