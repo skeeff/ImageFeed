@@ -66,6 +66,16 @@ extension AuthViewController: WebViewViewControllerDelegate{
                     }
                     
                 case .failure(let error):
+                    let alert = UIAlertController(
+                        title: "Что-то пошло не так",
+                        message: "Не удалось войти в систему",
+                        preferredStyle: .alert
+                    )
+                    let action = UIAlertAction(title: "Ok", style: .default)
+                    alert.addAction(action)
+                    DispatchQueue.main.async{
+                        self.present(alert, animated: true)
+                    }
                     print("Couldnt get token: \(error.localizedDescription)")
                 }
             }

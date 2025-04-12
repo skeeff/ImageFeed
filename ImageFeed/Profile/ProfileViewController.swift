@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     //MARK: Singleton
@@ -62,6 +63,7 @@ final class ProfileViewController: UIViewController {
         
         guard let profileData = ProfileService.shared.profile else { return }
         updateProfileLabels(profile: profileData)
+        updateAvatar()
     }
     
     //    private func updateProfileInfo(){
@@ -91,11 +93,12 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = profileImageService.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-        //TODO: use kingfisher to update avatar
+        let processor = RoundCornerImageProcessor(cornerRadius: 20)
+        avatarImageView?.kf.setImage(with: url, placeholder: UIImage(named: "avatar_pplaceholder"), options: [.processor(processor)])
     }
     
     private func setUpProfileImage(){
-        let avatarImage = UIImage(named: "avatar")
+        let avatarImage = UIImage(named: "avatar_placeholder")
         let avatarImageView = UIImageView(image: avatarImage)
         
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
