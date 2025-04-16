@@ -64,55 +64,14 @@ final class ProfileImageService {
             }
         }
         
-        
-        //        let task = URLSession.shared.dataTask(with: urlRequest){ [weak self] data, response, error in
-        //
-        //            if let error = error {
-        //                DispatchQueue.main.async{
-        //                    completion(.failure(error))
-        //                }
-        //                print(error.localizedDescription)
-        //                self?.task = nil
-        //                return
-        //            }
-        //
-        //            guard let data = data else {
-        //                DispatchQueue.main.async{
-        //                    completion(.failure(NSError(domain: "No data/corrupted data", code: 0, userInfo: nil)))
-        //                }
-        //                return
-        //            }
-        //
-        //            if let jsonString = String(data: data, encoding: .utf8){
-        //                print("JSON IMAGE = \(jsonString)")
-        //            } else {
-        //                print("failed to convert data \(data)")
-        //            }
-        //
-        //            do{
-        //                let decoder = JSONDecoder()
-        //                decoder.keyDecodingStrategy = .convertFromSnakeCase
-        //                let profileImageData = try decoder.decode(UserResult.self, from: data)
-        //                let profileImage = profileImageData.profileImage.small
-        //                NotificationCenter.default
-        //                    .post(
-        //                        name: ProfileImageService.didChangeNotification,
-        //                        object: self,
-        //                        userInfo: ["URL": profileImage])
-        //                DispatchQueue.main.async {
-        //                    self?.avatarURL = profileImage
-        //                    completion(.success(profileImage))
-        //                }
-        //            } catch {
-        //                DispatchQueue.main.async {
-        //                    completion(.failure(error))
-        //                }
-        //                print(error.localizedDescription)
-        //            }
-        //            self?.task = nil
-        //        }
         self.task = task
         task.resume()
     }
     
+}
+
+extension ProfileImageService{
+    func cleanProfileImage(){
+        self.avatarURL = nil
+    }
 }

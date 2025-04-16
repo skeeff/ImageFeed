@@ -7,8 +7,9 @@ struct Photo {
     let welcomeDescription: String?
     let thumbImageURL: String
     let largeImageURL: String
-    let isLiked: Bool
-} 
+    var isLiked: Bool
+    let thumbSize: CGSize
+}
 
 struct PhotoResult: Decodable {
     let id: String
@@ -23,4 +24,12 @@ struct PhotoResult: Decodable {
 struct URLSResult: Decodable {
     let full: String
     let small: String
+}
+
+struct LikeResult: Codable {
+    let likedByUser: Bool
+}
+
+struct Like: Codable {
+    let photo: LikeResult
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0F9DD92DAFC5B600C759AE /* ProfileLogoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0F9DD82DAFC5B600C759AE /* ProfileLogoutService.swift */; };
 		1B36DE762D9587600053EFBF /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B36DE752D9587600053EFBF /* UIBlockingProgressHUD.swift */; };
 		1B36DE782D9ABE4C0053EFBF /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B36DE772D9ABE4C0053EFBF /* ProfileService.swift */; };
 		1B42184C2D9E8F0F00B09CE1 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B42184B2D9E8F0F00B09CE1 /* ProfileImageService.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B0F9DD82DAFC5B600C759AE /* ProfileLogoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLogoutService.swift; sourceTree = "<group>"; };
 		1B36DE752D9587600053EFBF /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		1B36DE772D9ABE4C0053EFBF /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		1B42184B2D9E8F0F00B09CE1 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				1B36DE772D9ABE4C0053EFBF /* ProfileService.swift */,
 				1B42184B2D9E8F0F00B09CE1 /* ProfileImageService.swift */,
 				1BC06DBC2DAC2C0000CAE0EF /* ImagesListService.swift */,
+				1B0F9DD82DAFC5B600C759AE /* ProfileLogoutService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				1B42184F2D9E92F300B09CE1 /* ProfileModels.swift in Sources */,
 				1BC06DBA2DAAE33100CAE0EF /* TabBarController.swift in Sources */,
 				1B7860952D7F5DE200008FFD /* AuthViewController.swift in Sources */,
+				1B0F9DD92DAFC5B600C759AE /* ProfileLogoutService.swift in Sources */,
 				1B78609E2D82E2C800008FFD /* URLSession+data.swift in Sources */,
 				1B7860932D7F2E8900008FFD /* Constants.swift in Sources */,
 				1B42184C2D9E8F0F00B09CE1 /* ProfileImageService.swift in Sources */,
