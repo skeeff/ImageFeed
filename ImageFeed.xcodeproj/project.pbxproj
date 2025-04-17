@@ -15,6 +15,8 @@
 		1B0F9DE32DB1151E00C759AE /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0F9DE22DB1151E00C759AE /* AlertPresenter.swift */; };
 		1B0F9DE52DB1153800C759AE /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0F9DE42DB1153800C759AE /* AlertModel.swift */; };
 		1B0F9DE72DB1215C00C759AE /* ImagesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0F9DE62DB1215C00C759AE /* ImagesListPresenter.swift */; };
+		1B0F9DE92DB1394400C759AE /* ProfileViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0F9DE82DB1394400C759AE /* ProfileViewTests.swift */; };
+		1B0F9DEB2DB1395100C759AE /* ImagesListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0F9DEA2DB1395100C759AE /* ImagesListTests.swift */; };
 		1B36DE762D9587600053EFBF /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B36DE752D9587600053EFBF /* UIBlockingProgressHUD.swift */; };
 		1B36DE782D9ABE4C0053EFBF /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B36DE772D9ABE4C0053EFBF /* ProfileService.swift */; };
 		1B42184C2D9E8F0F00B09CE1 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B42184B2D9E8F0F00B09CE1 /* ProfileImageService.swift */; };
@@ -25,7 +27,7 @@
 		1B492FDA2D42880700B97F8B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1B492FD92D42880700B97F8B /* Base */; };
 		1B492FDC2D42880900B97F8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B492FDB2D42880900B97F8B /* Assets.xcassets */; };
 		1B492FDF2D42880900B97F8B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1B492FDE2D42880900B97F8B /* Base */; };
-		1B492FEA2D42880900B97F8B /* ImageFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FE92D42880900B97F8B /* ImageFeedTests.swift */; };
+		1B492FEA2D42880900B97F8B /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FE92D42880900B97F8B /* WebViewTests.swift */; };
 		1B492FF42D42880900B97F8B /* ImageFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FF32D42880900B97F8B /* ImageFeedUITests.swift */; };
 		1B492FF62D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B492FF52D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift */; };
 		1B7860932D7F2E8900008FFD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7860922D7F2E8900008FFD /* Constants.swift */; };
@@ -75,6 +77,8 @@
 		1B0F9DE22DB1151E00C759AE /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		1B0F9DE42DB1153800C759AE /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		1B0F9DE62DB1215C00C759AE /* ImagesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenter.swift; sourceTree = "<group>"; };
+		1B0F9DE82DB1394400C759AE /* ProfileViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTests.swift; sourceTree = "<group>"; };
+		1B0F9DEA2DB1395100C759AE /* ImagesListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListTests.swift; sourceTree = "<group>"; };
 		1B36DE752D9587600053EFBF /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		1B36DE772D9ABE4C0053EFBF /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		1B42184B2D9E8F0F00B09CE1 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
@@ -88,7 +92,7 @@
 		1B492FDE2D42880900B97F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B492FE02D42880900B97F8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B492FE52D42880900B97F8B /* ImageFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B492FE92D42880900B97F8B /* ImageFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedTests.swift; sourceTree = "<group>"; };
+		1B492FE92D42880900B97F8B /* WebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTests.swift; sourceTree = "<group>"; };
 		1B492FEF2D42880900B97F8B /* ImageFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B492FF32D42880900B97F8B /* ImageFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITests.swift; sourceTree = "<group>"; };
 		1B492FF52D42880900B97F8B /* ImageFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -185,7 +189,9 @@
 		1B492FE82D42880900B97F8B /* ImageFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				1B492FE92D42880900B97F8B /* ImageFeedTests.swift */,
+				1B492FE92D42880900B97F8B /* WebViewTests.swift */,
+				1B0F9DE82DB1394400C759AE /* ProfileViewTests.swift */,
+				1B0F9DEA2DB1395100C759AE /* ImagesListTests.swift */,
 			);
 			path = ImageFeedTests;
 			sourceTree = "<group>";
@@ -468,7 +474,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B492FEA2D42880900B97F8B /* ImageFeedTests.swift in Sources */,
+				1B0F9DEB2DB1395100C759AE /* ImagesListTests.swift in Sources */,
+				1B0F9DE92DB1394400C759AE /* ProfileViewTests.swift in Sources */,
+				1B492FEA2D42880900B97F8B /* WebViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
