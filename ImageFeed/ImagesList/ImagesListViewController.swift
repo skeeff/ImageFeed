@@ -3,9 +3,16 @@
 import UIKit
 import Kingfisher
 
-final class ImagesListViewController: UIViewController {
+protocol ImagesListViewControllerProtocol: AnyObject {
+    var presenter: ImagesListPresenterProtocol? { get set }
+    var tableView: UITableView! { get set }
+    var photos: [Photo] { get set }
+    func updateTableViewAnimated()
+}
+
+final class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
     //MARK: @IBOutlet properties
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet  weak var tableView: UITableView!
     //MARK: constants
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private let currentDate = Date()
@@ -15,20 +22,18 @@ final class ImagesListViewController: UIViewController {
     var photos: [Photo] = []
     private let storage = OAuth2ServiceStorage.shared
     private var imagesListServiceObserver: NSObjectProtocol?
+    var presenter: ImagesListPresenterProtocol?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imagesListServiceObserver = NotificationCenter.default.addObserver(forName: ImagesListService.didChangeNotification, object: nil, queue: .main){ [weak self] _ in
-            guard let self else { return }
-            self.updateTableView()
-        }
+        presenter?.viewDidLoad()
         
-        
-        
+        tableView.rowHeight = 200
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         loadNextPhotosIfNeeded()
+        updateTableView()
     }
     
     private func showSingleImageViewController(indexPath: IndexPath) {
@@ -42,7 +47,7 @@ final class ImagesListViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+        presenter?.viewDidDisappear()
         // NotificationCenter.default.removeObserver(imagesListServiceObserver)
     }
     
@@ -78,36 +83,17 @@ extension ImagesListViewController: UITableViewDataSource{
         
         cell.delegate = self
         cell.configCell(photo: photos[indexPath.row])
-//        if cell.configCell(photo: photos[indexPath.row]){
-//     tableView.reloadRows(at: [indexPath], with: .automatic)
-//        }
         return cell
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == photos.count - 1 {
-            loadNextPhotosIfNeeded()
-        }
+        presenter?.tableViewWillDisplay(indexPath: indexPath)
     }
     
     
 }
-extension ImagesListViewController{
-    //    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-    //        guard let image = UIImage(named: photosName[indexPath.row]) else {
-    //            return
-    //        }
-    //
-    //        cell.cellImage.image = image
-    //        cell.dateLabel.text = dateFormatter.string(from: currentDate)
-    //
-    //        let isLiked = indexPath.row % 2 == 0
-    //        let likeImage = isLiked ? UIImage(named: "liked") : UIImage(named: "notLiked")
-    //        cell.likeButton.setImage(likeImage, for: .normal)
-    //    }
-}
 
 extension ImagesListViewController {
-    private func updateTableViewAnimated(){
+     func updateTableViewAnimated(){
         DispatchQueue.main.async{ [weak self] in
             guard let self else { return }
             let oldCount = photos.count
@@ -125,17 +111,7 @@ extension ImagesListViewController {
         }
     }
     private func updateTableView(){
-        guard let token = storage.token else { return }
-        //        imagesListService.fetchPhotosNextPage(token: token)
-        self.updateTableViewAnimated()
-    }
-    
-    private func tableViewWillDisplay(indexPath: IndexPath){
-        guard let token = storage.token else{ return }
-        
-        if indexPath.row + 1 == photos.count{
-            imagesListService.fetchPhotosNextPage(token: token)
-        }
+        presenter?.updateTableView()
     }
     
     private func loadNextPhotosIfNeeded() {
@@ -148,28 +124,7 @@ extension ImagesListViewController {
 
 extension ImagesListViewController: ImagesListCellDelegate {
     func imageListCellDidTapLike(_ cell: ImagesListCell) {
-        guard let token = storage.token else { return }
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        let photo = photos[indexPath.row]
-        
-        UIBlockingProgressHUD.show()
-        imagesListService.changeLike(token: token, photoId: photo.id, isLiked: !photo.isLiked){[weak self] result in
-            guard let self else { return }
-            UIBlockingProgressHUD.dismiss()
-            switch result{
-            case .success(let isLiked):
-                self.photos[indexPath.row].isLiked = isLiked
-                cell.setIsLiked(isLiked: isLiked)
-            case .failure(let error):
-                let alert = UIAlertController(title: "Что-то пошло не так", message: "Проверьте соединение с интернетом", preferredStyle: .alert)
-                let action = UIAlertAction(title: "Ок", style: .default)
-                alert.addAction(action)
-                DispatchQueue.main.async{
-                    self.present(alert, animated: true)
-                }
-                print(error.localizedDescription)
-                print("counldn change state of like(imageList vc)")
-            }
-        }
+        presenter?.imagesListDidTapLike(cell)
+
     }
 }
