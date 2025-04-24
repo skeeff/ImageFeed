@@ -1,4 +1,6 @@
 import UIKit
+import ProgressHUD
+
 
 final class AuthViewController: UIViewController {
     
@@ -42,13 +44,16 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate{
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String?) {
+        UIBlockingProgressHUD.show()
         
         DispatchQueue.global().async{
             guard let code else {
                 print("Didnt get authorisation code")
                 return
             }
+            
             self.oAuth2Service.fetchOAuthToken(code: code) { result in
+                UIBlockingProgressHUD.dismiss()
                 switch result {
                 case .success(let token):
                     print("token successfully gathered")
@@ -56,11 +61,21 @@ extension AuthViewController: WebViewViewControllerDelegate{
                     
                     DispatchQueue.main.async {
                         self.dismiss(animated: true){
-                            self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+                            self.delegate?.didAuthenticate(self)
                         }
                     }
                     
                 case .failure(let error):
+                    let alert = UIAlertController(
+                        title: "Что-то пошло не так",
+                        message: "Не удалось войти в систему",
+                        preferredStyle: .alert
+                    )
+                    let action = UIAlertAction(title: "Ok", style: .default)
+                    alert.addAction(action)
+                    DispatchQueue.main.async{
+                        self.present(alert, animated: true)
+                    }
                     print("Couldnt get token: \(error.localizedDescription)")
                 }
             }

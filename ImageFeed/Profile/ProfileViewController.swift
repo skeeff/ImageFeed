@@ -1,21 +1,104 @@
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
+    //MARK: Singleton
+    private let profileData = ProfileService.shared.profile
+    private let bearerToken = OAuth2ServiceStorage.shared.token
+    private let profileImageService = ProfileImageService.shared
+    //MARK: Properties
+    private var profileImageServiceObserver: NSObjectProtocol?
     
-    private var avatarImageView = UIImageView()
-
+    //MARK: UI
+    lazy var avatarImageView: UIImageView? = {
+        let profileImage = UIImage(named: "avatar")
+        let profileImageView = UIImageView(image: profileImage)
+        profileImageView.backgroundColor = UIColor(named: "YP Dark" )
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        return profileImageView
+    }()
+    
+    private lazy var nameLabel: UILabel? = {
+        let nameLabel = UILabel()
+        nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        nameLabel.textColor = UIColor(named: "YP White")
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        return nameLabel
+    }()
+    
+    private lazy var loginLabel: UILabel? = {
+        let loginLabel = UILabel()
+        loginLabel.font = UIFont.systemFont(ofSize: 13)
+        loginLabel.textColor = UIColor(named:"YP Gray")
+        loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        return loginLabel
+    }()
+    
+    private lazy var bioLabel: UILabel? = {
+        let bioLabel = UILabel()
+        bioLabel.font = UIFont.systemFont(ofSize: 13)
+        bioLabel.textColor = UIColor(named: "YP White")
+        bioLabel.translatesAutoresizingMaskIntoConstraints = false
+        return bioLabel
+    }()
+    //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "YP Black")
         
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        updateAvatar()
         setUpProfileImage()
         setUpLogOutButton()
-        setUpLabels() 
+        setUpProfileLabels()
+        
+        
+        guard let profileData = ProfileService.shared.profile else { return }
+        updateProfileLabels(profile: profileData)
+        updateAvatar()
+    }
+    
+    //    private func updateProfileInfo(){
+    //        guard let token = bearerToken else{
+    //            return
+    //        }
+    //        ProfileService.shared.fetchProfile(token){ [weak self] result in
+    //            switch result {
+    //            case.success(let profile):
+    //                self?.updateProfileLabels(profile: profile)
+    //            case.failure(let error):
+    //                print("Loading error \(error.localizedDescription)")
+    //            }
+    //        }
+    //    }
+    
+    private func updateProfileLabels(profile: Profile){
+        setUpProfileLabels()
+        
+        nameLabel?.text = profile.name
+        loginLabel?.text = profile.loginName
+        bioLabel?.text = profile.bio
+    }
+    
+    private func updateAvatar(){
+        guard
+            let profileImageURL = profileImageService.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        let processor = RoundCornerImageProcessor(cornerRadius: 20)
+        avatarImageView?.kf.setImage(with: url, placeholder: UIImage(named: "avatar_pplaceholder"), options: [.processor(processor)])
     }
     
     private func setUpProfileImage(){
-        let avatarImage = UIImage(named: "avatar")
+        let avatarImage = UIImage(named: "avatar_placeholder")
         let avatarImageView = UIImageView(image: avatarImage)
         
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +127,7 @@ final class ProfileViewController: UIViewController {
         logOutButton.backgroundColor = UIColor(named: "YP Black")
         view.addSubview(logOutButton)
         
+        guard let avatarImageView else { return }
         NSLayoutConstraint.activate([
             logOutButton.widthAnchor.constraint(equalToConstant: 44),
             logOutButton.heightAnchor.constraint(equalToConstant: 44),
@@ -54,42 +138,20 @@ final class ProfileViewController: UIViewController {
         ])
     }
     
-    private func setUpLabels(){
-        let nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = "Екатерина Новикова"
-        nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        nameLabel.textColor = .white
-        view.addSubview(nameLabel)
+    private func setUpProfileLabels() {
+        guard let nameLabel, let loginLabel, let bioLabel, let avatarImageView else { return }
         
-        let nickNameLabel = UILabel()
-        nickNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nickNameLabel.text = "@ekaterina_nov"
-        nickNameLabel.textColor = UIColor(named: "YP Gray")
-        nickNameLabel.font = UIFont.systemFont(ofSize: 13)
-        view.addSubview(nickNameLabel)
+        let labels = [nameLabel, loginLabel, bioLabel]
         
-        let descriptionLabel = UILabel()
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.text = "Hello, world!"
-        descriptionLabel.font = UIFont.systemFont(ofSize: 13)
-        descriptionLabel.textColor = .white
-        view.addSubview(descriptionLabel)
-        
+        labels.forEach { view.addSubview($0) }
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            
-            nickNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            nickNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: nickNameLabel.bottomAnchor, constant: 8),
-            descriptionLabel.leadingAnchor.constraint(equalTo: nickNameLabel.leadingAnchor)
-            
-            
+            nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8),
+            loginLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            loginLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            bioLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            bioLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 8)
         ])
-        
-        
     }
     
     @objc private func didTapButton(){
@@ -97,3 +159,4 @@ final class ProfileViewController: UIViewController {
     }
     
 }
+

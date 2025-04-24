@@ -1,6 +1,10 @@
 import UIKit
 
 final class OAuth2Service {
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
+    
     
     static let shared = OAuth2Service()
     private init() { }
@@ -21,6 +25,7 @@ final class OAuth2Service {
         ]
         
         guard let url = components.url(relativeTo: baseURL) else {
+            assertionFailure("Failed to create URL")
             return nil
         }
         
@@ -33,12 +38,35 @@ final class OAuth2Service {
     func fetchOAuthToken(code: String, completion: @escaping (Result<String,Error>) -> Void){
         guard let urlRequest = makeOAuthTokenRequest(code: code) else {
             DispatchQueue.main.async {
-                completion(.failure(NSError(domain: "Invalid request", code: 0, userInfo: nil)))
+                completion(.failure(NSError(domain: "Invalid request", code: 0, userInfo: nil))) //could change to guard let Thread.isMainThread later
             }
             return
         }
         
-        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+        DispatchQueue.main.async {
+            assert(Thread.isMainThread)
+        }
+        
+        if task != nil{
+            if lastCode != code{
+                task?.cancel()
+            } else {
+                completion(.failure(AuthServiceError.invalidRequest))
+                return
+            }
+        } else {
+            if lastCode == code {
+                completion(.failure(AuthServiceError.invalidRequest))
+                return
+            }
+        }
+        lastCode = code
+        guard let request = makeOAuthTokenRequest(code: code) else{
+            completion(.failure(AuthServiceError.invalidRequest))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) {[weak self] data, response, error in
             
             if let error = error {
                 DispatchQueue.main.async {
@@ -75,8 +103,11 @@ final class OAuth2Service {
                     completion(.failure(DecoderError.decodingError(error)))
                 }
             }
+            self?.task = nil
+            self?.lastCode = nil
             
         }
+        self.task = task
         task.resume()
     }
     
@@ -84,4 +115,8 @@ final class OAuth2Service {
 
 enum DecoderError: Error{
     case decodingError(Error)
+}
+
+enum AuthServiceError: Error{
+    case invalidRequest
 }

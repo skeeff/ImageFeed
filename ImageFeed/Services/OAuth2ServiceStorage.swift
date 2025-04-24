@@ -1,11 +1,12 @@
 import Foundation
+import SwiftKeychainWrapper
 
 final class OAuth2ServiceStorage {
     static let shared = OAuth2ServiceStorage()
     
     private init() {}
     
-    private let storage = UserDefaults.standard
+    private let storage = KeychainWrapper.standard
     
     private enum StorageKey: String{
         case token
