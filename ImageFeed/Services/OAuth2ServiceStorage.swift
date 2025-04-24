@@ -24,3 +24,9 @@ final class OAuth2ServiceStorage {
         }
     }
 }
+
+extension OAuth2ServiceStorage {
+    func cleanToken(){
+        storage.removeObject(forKey: StorageKey.token.rawValue)
+    }
+}

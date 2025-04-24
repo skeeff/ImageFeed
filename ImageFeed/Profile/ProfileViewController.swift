@@ -6,6 +6,7 @@ final class ProfileViewController: UIViewController {
     private let profileData = ProfileService.shared.profile
     private let bearerToken = OAuth2ServiceStorage.shared.token
     private let profileImageService = ProfileImageService.shared
+    private let logoutService = ProfileLogoutService.shared
     //MARK: Properties
     private var profileImageServiceObserver: NSObjectProtocol?
     
@@ -114,15 +115,13 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setUpLogOutButton(){
-        let logOutButtonImage = UIImage(named:"exit_button_icon")
         
-        guard let logOutButtonImage else { return }
+        guard let logOutButtonImage = UIImage(named: "exit_button_icon")?.withRenderingMode(.alwaysOriginal) else { return }
         
-        let logOutButton = UIButton.systemButton(
-            with: logOutButtonImage,
-            target: self,
-            action: #selector(Self.didTapButton)
-        )
+        let logOutButton = UIButton(type: .custom)
+        logOutButton.setImage(logOutButtonImage, for: .normal)
+        logOutButton.addTarget(self, action: #selector(self.didTapButton), for: .touchUpInside)
+        
         logOutButton.translatesAutoresizingMaskIntoConstraints = false
         logOutButton.backgroundColor = UIColor(named: "YP Black")
         view.addSubview(logOutButton)
@@ -155,7 +154,16 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func didTapButton(){
-        //TODO написать обработку нажатия на кнопку
+        let alert = UIAlertController(title: "Пока!", message: "Вы точно хотите уйти?", preferredStyle: .alert)
+        let actionNo = UIAlertAction(title: "Нет", style: .cancel)
+        let actionLeave = UIAlertAction(title: "Да", style: .destructive){ [weak self] _ in
+            guard let self else { return }
+            self.logoutService.logout()
+        }
+        alert.addAction(actionNo)
+        alert.addAction(actionLeave)
+        
+        present(alert, animated: true, completion: nil)
     }
     
 }
