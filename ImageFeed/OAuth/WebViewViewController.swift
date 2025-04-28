@@ -11,7 +11,11 @@ protocol WebViewViewControllerProtocol: AnyObject {
 
 final class WebViewViewController: UIViewController, WebViewViewControllerProtocol {
     
-    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var webView: WKWebView!{
+        didSet {
+                    webView.accessibilityIdentifier = "webView"
+                }
+    }
     @IBOutlet weak var progressView: UIProgressView!
     
     private var estimatedProgressObservation: NSKeyValueObservation?

@@ -16,7 +16,12 @@ final class ImagesListCell: UITableViewCell{
             dateLabel.textColor = UIColor(named: "YP White")
         }
     }
-    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!{
+        didSet {
+            likeButton.accessibilityIdentifier = "likeButton"
+            likeButton.isAccessibilityElement = true
+        }
+    }
     @IBOutlet weak var cellImage: UIImageView!
     weak var delegate: ImagesListCellDelegate?
     @IBAction func likeButtonClicked(_ sender: UIButton) {

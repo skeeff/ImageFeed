@@ -12,7 +12,12 @@ protocol ImagesListViewControllerProtocol: AnyObject {
 
 final class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
     //MARK: @IBOutlet properties
-    @IBOutlet  weak var tableView: UITableView!
+    @IBOutlet  weak var tableView: UITableView!{
+        didSet {
+            tableView.accessibilityIdentifier = "tableView"
+        }
+        
+    }
     //MARK: constants
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private let currentDate = Date()
@@ -93,7 +98,7 @@ extension ImagesListViewController: UITableViewDataSource{
 }
 
 extension ImagesListViewController {
-     func updateTableViewAnimated(){
+    func updateTableViewAnimated(){
         DispatchQueue.main.async{ [weak self] in
             guard let self else { return }
             let oldCount = photos.count
@@ -125,6 +130,6 @@ extension ImagesListViewController {
 extension ImagesListViewController: ImagesListCellDelegate {
     func imageListCellDidTapLike(_ cell: ImagesListCell) {
         presenter?.imagesListDidTapLike(cell)
-
+        
     }
 }

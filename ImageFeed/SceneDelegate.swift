@@ -25,7 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = SplashScreenViewController()
         window?.makeKeyAndVisible()
         
-        
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
