@@ -1,7 +1,14 @@
 import UIKit
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
+protocol ProfileViewControllerProtocol: AnyObject{
+    var presenter: ProfilePresenterProtocol? { get }
+    func updateProfileInformation(profile: Profile)
+    func updateAvatar()
+    func dismiss()
+}
+
+final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     //MARK: Singleton
     private let profileData = ProfileService.shared.profile
     private let bearerToken = OAuth2ServiceStorage.shared.token
@@ -9,6 +16,19 @@ final class ProfileViewController: UIViewController {
     private let logoutService = ProfileLogoutService.shared
     //MARK: Properties
     private var profileImageServiceObserver: NSObjectProtocol?
+    private(set) var presenter: ProfilePresenterProtocol?
+    
+    init(presenter: ProfilePresenterProtocol){
+        super.init(nibName: nil, bundle: nil)
+        
+        self.presenter = presenter
+        presenter.view = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     //MARK: UI
     lazy var avatarImageView: UIImageView? = {
@@ -42,44 +62,33 @@ final class ProfileViewController: UIViewController {
         bioLabel.translatesAutoresizingMaskIntoConstraints = false
         return bioLabel
     }()
+    
+    private lazy var logOutButton: UIButton? = {
+        guard let logOutButtonImage = UIImage(named: "exit_button_icon")?.withRenderingMode(.alwaysOriginal) else { return nil }
+
+        let button = UIButton.systemButton(with: logOutButtonImage, target: self, action: #selector(didTapLogoutButton))
+        button.backgroundColor = UIColor(named: "YP Dark")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityIdentifier = "logoutButton"
+        return button
+    }()
+
     //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter?.viewDidLoad()
+        
         view.backgroundColor = UIColor(named: "YP Black")
         
-        profileImageServiceObserver = NotificationCenter.default.addObserver(
-            forName: ProfileImageService.didChangeNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateAvatar()
-        }
-        updateAvatar()
         setUpProfileImage()
         setUpLogOutButton()
         setUpProfileLabels()
         
         
         guard let profileData = ProfileService.shared.profile else { return }
-        updateProfileLabels(profile: profileData)
-        updateAvatar()
+        updateProfileInformation(profile: profileData)
     }
-    
-    //    private func updateProfileInfo(){
-    //        guard let token = bearerToken else{
-    //            return
-    //        }
-    //        ProfileService.shared.fetchProfile(token){ [weak self] result in
-    //            switch result {
-    //            case.success(let profile):
-    //                self?.updateProfileLabels(profile: profile)
-    //            case.failure(let error):
-    //                print("Loading error \(error.localizedDescription)")
-    //            }
-    //        }
-    //    }
     
     private func updateProfileLabels(profile: Profile){
         setUpProfileLabels()
@@ -89,7 +98,14 @@ final class ProfileViewController: UIViewController {
         bioLabel?.text = profile.bio
     }
     
-    private func updateAvatar(){
+    func updateProfileInformation(profile: Profile) {
+        updateProfileLabels(profile: profile)
+        updateAvatar()
+        
+        print("user data set up successfully")
+    }
+    
+    func updateAvatar(){
         guard
             let profileImageURL = profileImageService.avatarURL,
             let url = URL(string: profileImageURL)
@@ -116,13 +132,14 @@ final class ProfileViewController: UIViewController {
     
     private func setUpLogOutButton(){
         
-        guard let logOutButtonImage = UIImage(named: "exit_button_icon")?.withRenderingMode(.alwaysOriginal) else { return }
-        
-        let logOutButton = UIButton(type: .custom)
-        logOutButton.setImage(logOutButtonImage, for: .normal)
-        logOutButton.addTarget(self, action: #selector(self.didTapButton), for: .touchUpInside)
-        
-        logOutButton.translatesAutoresizingMaskIntoConstraints = false
+//        guard let logOutButtonImage = UIImage(named: "exit_button_icon")?.withRenderingMode(.alwaysOriginal) else { return }
+//        
+//        let logOutButton = UIButton(type: .custom)
+//       logOutButton.setImage(logOutButtonImage, for: .normal)
+//        logOutButton.addTarget(self, action: #selector(self.didTapLogoutButton), for: .touchUpInside)
+        guard let logOutButton else { return }
+
+        view.addSubview(logOutButton)
         logOutButton.backgroundColor = UIColor(named: "YP Black")
         view.addSubview(logOutButton)
         
@@ -153,17 +170,23 @@ final class ProfileViewController: UIViewController {
         ])
     }
     
-    @objc private func didTapButton(){
-        let alert = UIAlertController(title: "Пока!", message: "Вы точно хотите уйти?", preferredStyle: .alert)
-        let actionNo = UIAlertAction(title: "Нет", style: .cancel)
-        let actionLeave = UIAlertAction(title: "Да", style: .destructive){ [weak self] _ in
-            guard let self else { return }
-            self.logoutService.logout()
-        }
-        alert.addAction(actionNo)
-        alert.addAction(actionLeave)
-        
-        present(alert, animated: true, completion: nil)
+    func dismiss() {
+        self.dismiss(animated: true)
+    }
+    
+    @objc private func didTapLogoutButton(){
+        print("loguot button tapped")
+        presenter?.didTapLogoutButton()
+//        let alert = UIAlertController(title: "Пока!", message: "Вы точно хотите уйти?", preferredStyle: .alert)
+//        let actionNo = UIAlertAction(title: "Нет", style: .cancel)
+//        let actionLeave = UIAlertAction(title: "Да", style: .destructive){ [weak self] _ in
+//            guard let self else { return }
+//            self.logoutService.logout()
+//        }
+//        alert.addAction(actionNo)
+//        alert.addAction(actionLeave)
+//        
+//        present(alert, animated: true, completion: nil)
     }
     
 }
